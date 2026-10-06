@@ -1,0 +1,35 @@
+{
+  "env": {
+    "HOOKS_DIR": "/path/to/agent-behavior-hooks/hooks"
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$HOOKS_DIR/safe_hook.py\" 3 python3 \"$HOOKS_DIR/wall_clock_inject.py\"",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "python3 \"$HOOKS_DIR/safe_hook.py\" 4 python3 \"$HOOKS_DIR/terse_nudge.py\"",
+            "timeout": 6
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Agent|Task|AskUserQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$HOOKS_DIR/safe_hook.py\" --policy hard 4 python3 \"$HOOKS_DIR/anti_loop_guard.py\"",
+            "timeout": 6
+          }
+        ]
+      }
+    ]
+  }
+}

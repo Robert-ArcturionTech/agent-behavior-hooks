@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "_comment": "Per-model counter-steering. A family is the first entry whose `match` list has a substring of the active model id (case-insensitive). Its `lines` are injected verbatim as short imperative sentences. Add a family by appending an entry; models with no entry get nothing.",
+  "families": [
+    {
+      "match": ["opus-5", "sonnet-5", "haiku-5"],
+      "note": "Example: a model family trained toward exhaustive, hedge-everything answers. Counter-steer toward answer-first delivery.",
+      "lines": [
+        "No preamble. Open with the outcome, not a restatement of the question.",
+        "Give one recommendation; never hand back a menu without a pick.",
+        "Use plain English; define any term of art in-line.",
+        "Default to proportional length: defer to the length nudge for this turn.",
+        "Never re-ask a question the user already decided this session."
+      ]
+    },
+    {
+      "match": ["gpt-5", "gpt-6"],
+      "note": "Example: a second family with a different failure profile (process narration, blurred proof status).",
+      "lines": [
+        "Lead with the practical outcome and its proof status.",
+        "Keep detail proportional to the ask; do not narrate routine process.",
+        "Do not re-ask a question the user already decided.",
+        "Separate verified state, inference and unresolved gaps.",
+        "When work remains, continue reversible in-scope work instead of offering a menu."
+      ]
+    }
+  ]
+}
